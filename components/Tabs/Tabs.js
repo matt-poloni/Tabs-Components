@@ -1,3 +1,12 @@
+// STRETCH: Single Tabs component
+class Tabs {
+  constructor(element) {
+    this.element = element;
+    this.tabLinks = this.element.querySelectorAll('.tabs-link');
+    this.tabLinks.forEach(link => new TabLink(link));
+    this.selectedTab = new TabLink(this.element.querySelector('.tabs-link-selected'));
+  }
+}
 
 class TabLink {
   constructor(element) {
@@ -19,17 +28,25 @@ class TabLink {
 
   select() {
     // Get all of the elements with the tabs-link class
-    const links = document.querySelectorAll('.tabs-link');
+    // const links = document.querySelectorAll('.tabs-link');
 
     // Using a loop or the forEach method remove the 'tabs-link-selected' class from all of the links
-    // Array.from(links).forEach();
-    links.forEach(link => link.classList.remove('tabs-link-selected'));
+    // links.forEach(link => link.classList.remove('tabs-link-selected'));
+
+    tabs.selectedTab.deselect();
 
     // Add a class named "tabs-link-selected" to this link
     this.element.classList.add('tabs-link-selected');
     
     // Call the select method on the item associated with this link
     this.tabItem.select();
+
+    tabs.selectedTab = new TabLink(tabs.element.querySelector('.tabs-link-selected'));
+  }
+
+  deselect() {
+    this.element.classList.remove('tabs-link-selected');
+    this.tabItem.deselect();
   }
 }
 
@@ -41,14 +58,16 @@ class TabItem {
 
   select() {
     // Select all ".tabs-item" elements from the DOM
-    const items = document.querySelectorAll('.tabs-item');
+    // const items = document.querySelectorAll('.tabs-item');
 
     // Remove the class "tabs-item-selected" from each element
-    items.forEach(item => item.classList.remove('tabs-item-selected'));
+    // items.forEach(item => item.classList.remove('tabs-item-selected'));
 
     // Add a class named "tabs-item-selected" to this element
     this.element.classList.add('tabs-item-selected');
   }
+
+  deselect() { this.element.classList.remove('tabs-item-selected'); }
 }
 
 /* START HERE: 
@@ -60,5 +79,8 @@ class TabItem {
 - In your .forEach() method's callback function, return a new instance of TabLink and pass in each link as a parameter
 
 */
+// STRETCH: commented out b/c I included it in Tabs constructor
+// links = document.querySelectorAll('.tabs-link').forEach(link => new TabLink(link));
 
-links = document.querySelectorAll('.tabs-link').forEach(link => new TabLink(link));
+// STRETCH: creating Tabs component
+let tabs = new Tabs(document.querySelector('.tabs'));
