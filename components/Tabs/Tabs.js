@@ -33,6 +33,7 @@ class TabLink {
     // Using a loop or the forEach method remove the 'tabs-link-selected' class from all of the links
     // links.forEach(link => link.classList.remove('tabs-link-selected'));
 
+    // STRETCH: deselect currently selected tab before selecting clicked tab
     tabs.selectedTab.deselect();
 
     // Add a class named "tabs-link-selected" to this link
@@ -41,9 +42,11 @@ class TabLink {
     // Call the select method on the item associated with this link
     this.tabItem.select();
 
+    // STRETCH: Sets selected tab to just clicked tab
     tabs.selectedTab = new TabLink(tabs.element.querySelector('.tabs-link-selected'));
   }
 
+  // STRETCH: deselect method that removes selected class from link and calls the tab item's deslect method
   deselect() {
     this.element.classList.remove('tabs-link-selected');
     this.tabItem.deselect();
@@ -67,6 +70,7 @@ class TabItem {
     this.element.classList.add('tabs-item-selected');
   }
 
+  // STRETCH: deselect method that removes selected class from item
   deselect() { this.element.classList.remove('tabs-item-selected'); }
 }
 
