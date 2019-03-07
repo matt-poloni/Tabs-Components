@@ -2,9 +2,8 @@
 class Tabs {
   constructor(element) {
     this.element = element;
-    this.tabLinks = this.element.querySelectorAll('.tabs-link');
-    this.tabLinks.forEach(link => new TabLink(link));
-    this.selectedTab = new TabLink(this.element.querySelector('.tabs-link-selected'));
+    this.tabLinks = Array.from(this.element.querySelectorAll('.tabs-link')).map(link => new TabLink(link));
+    this.selectedTab = this.tabLinks.find(link => link.element.classList.contains('tabs-link-selected'));
   }
 }
 
@@ -43,7 +42,7 @@ class TabLink {
     this.tabItem.select();
 
     // STRETCH: Sets selected tab to just clicked tab
-    tabs.selectedTab = new TabLink(tabs.element.querySelector('.tabs-link-selected'));
+    tabs.selectedTab = tabs.tabLinks.find(link => link.element.classList.contains('tabs-link-selected'));
   }
 
   // STRETCH: deselect method that removes selected class from link and calls the tab item's deslect method
